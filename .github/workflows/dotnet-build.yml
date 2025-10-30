@@ -14,20 +14,38 @@ jobs:
       - &echo-template
         name: Echo template
         run: echo "This is a reusable step."
-        shell: bash
-
-
-          
+        shell: bash          
 
       - name: Show runtime context
         run: |
           echo: "Runner OS: ${{ runner.os }}"
           echo "Repository: ${{ github.repository}}"
           echo "Workflow: ${{ github.workflow}}"
-          echo ":rocket: 🚀 Triggered by: ${{ github.event_name}}"
+          echo "Triggered by: ${{ github.event_name}}"
           echo "Actor ${{ github.actor }}"
           echo "Run number: ${{ github.run_number}}"
           echo "Branch: ${{ github.red }}"
 
       - *echo-template
+      
+build-project:
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v5.0.0
+      
+    - name: Install .NET 9
+      uses: actions/setup-dotnet@v5.0.0
+      with:
+        dotnet-version: '9.0.x'
+
+    - name: Build project
+      working-directory: CleanCodeDevOps/CleanCodeDevOps.App
+      run: dotnet build
+
+    - name: Run code
+      run: dotnet run --project CleanCodeDevOps/CleanCodeDevOps.App/CleanCodeDevOps.app.csproj
+  
+  
       
