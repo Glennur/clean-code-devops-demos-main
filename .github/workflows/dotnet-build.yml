@@ -47,5 +47,5 @@ jobs:
 
 
       - name: Run project
-        run: dotnet run --project CleanCodDevOps/CleanCodDevOps.csproj
+        run: dotnet run --project CleanCodDevOps/CleanCodDevOps/CleanCodDevOps.csproj
 
