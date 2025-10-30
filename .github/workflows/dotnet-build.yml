@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name:  Start build process
-        run: echo "build process has started..."
+      - name: Start build process
+        run: echo "Build process has started... :rocket:"
 
       - &echo-template
         name: Echo template
@@ -18,34 +18,31 @@ jobs:
 
       - name: Show runtime context
         run: |
-          echo: "Runner OS: ${{ runner.os }}"
-          echo "Repository: ${{ github.repository}}"
-          echo "Workflow: ${{ github.workflow}}"
-          echo "Triggered by: ${{ github.event_name}}"
-          echo "Actor ${{ github.actor }}"
-          echo "Run number: ${{ github.run_number}}"
-          echo "Branch: ${{ github.red }}"
+          echo "Runner OS: ${{ runner.os }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Workflow: ${{ github.workflow }}"
+          echo "Triggered by: ${{ github.event_name }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Run number: ${{ github.run_number }}"
+          echo "Branch: ${{ github.ref }}"
 
       - *echo-template
-      
-build-project:
-  runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v5.0.0
-      
-    - name: Install .NET 9
-      uses: actions/setup-dotnet@v5.0.0
-      with:
-        dotnet-version: '9.0.x'
+  build-project:
+    runs-on: ubuntu-latest
 
-    - name: Build project
-      working-directory: CleanCodeDevOps/CleanCodeDevOps.App
-      run: dotnet build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
 
-    - name: Run code
-      run: dotnet run --project CleanCodeDevOps/CleanCodeDevOps.App/CleanCodeDevOps.app.csproj
-  
-  
-      
+      - name: Install .NET 9
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Build project
+        working-directory: CleanCodeDevOps/CleanCodeDevOps.App
+        run: dotnet build
+
+      - name: Run project
+        run: dotnet run --project CleanCodeDevOps/CleanCodeDevOps.App/CleanCodeDevOps.App.csproj
