@@ -16,7 +16,7 @@ jobs:
 
       - name: Simulating a failing step
         run: |
-          echo: "Step fails intentionally"
+          echo "Step fails intentionally"
           exit: 1
 
       - name: Runs only if previous step fails
