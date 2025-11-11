@@ -4,7 +4,7 @@ on:
   workflow_dispatch
 
 jobs:
-  builds:
+  build:
     runs-on: ${{ matrix.os }}
     strategy: 
       matrix:
@@ -18,7 +18,7 @@ jobs:
           dotnet-version: ${{ matrix.version }}
 
       - name: Build Solution
-        run: dotnet build ./CleanCodDevOps/CleanCodDevOps.sln
+        run: dotnet build CleanCodDevOps.sln
 
       - name: Print matrix values
         run: |
