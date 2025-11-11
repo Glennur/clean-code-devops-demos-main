@@ -18,12 +18,17 @@ jobs:
           dotnet-version: ${{ matrix.version }}
 
       - name: Build Solution
-        run: dotnet build ../CleanCodDevOps/CleanCodDevOps.sln
+        run: dotnet build ./CleanCodDevOps/CleanCodDevOps.sln
 
       - name: Print matrix values
         run: |
           echo "Running on OS: ${{ matrix.os }}"
           echo "Using .NET version ${{ matrix.version }}"
 
-
+  post-build:
+    needs: build
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Post build summary
+        run: echo "All matrix builds are complete - runnings pot-build-job"
           
